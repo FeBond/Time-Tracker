@@ -28,16 +28,6 @@ class TimeTracker {
 
     // iOS touch event handling
     setupIOSTouchHandling() {
-        // Prevent double-tap zoom on buttons
-        let lastTouchEnd = 0;
-        document.addEventListener('touchend', (event) => {
-            const now = Date.now();
-            if (now - lastTouchEnd <= 300) {
-                event.preventDefault();
-            }
-            lastTouchEnd = now;
-        }, false);
-
         // Ensure all buttons respond to touch
         document.addEventListener('touchstart', (e) => {
             if (e.target.tagName === 'BUTTON' || e.target.closest('button')) {
@@ -785,7 +775,7 @@ class TimeTracker {
 
     generateTimerControls(entry) {
         const completed = entry.completed || false;
-        const checkIcon = completed ? '✅' : '☐';
+        const checkIcon = completed ? 'âœ…' : 'â˜';
         const checkClass = completed ? 'completed-check' : 'incomplete-check';
         
         let timerButtons = '';
@@ -1077,7 +1067,7 @@ class TimeTracker {
 
     updateDarkModeIcon(isDark) {
         const icon = document.getElementById('dark-mode-icon');
-        icon.textContent = isDark ? '☀️' : '🌙';
+        icon.textContent = isDark ? 'â˜€ï¸' : 'ðŸŒ™';
     }
 
     updateDisplay() {
@@ -1166,7 +1156,7 @@ class TimeTracker {
                 html += `
                     <div class="entry-item${stopwatchClass}${completedClass}" id="entry-${entry.id}">
                         <div class="entry-info">
-                            ${isStopwatchEntry ? '<div class="stopwatch-badge">⏱️ Main Stopwatch</div>' : ''}
+                            ${isStopwatchEntry ? '<div class="stopwatch-badge">â±ï¸ Main Stopwatch</div>' : ''}
                             <div class="entry-time">${timePeriodsDisplay}</div>
                             <div class="entry-duration" id="duration-${entry.id}">Duration: ${durationDisplay}</div>
                             <div class="entry-description">${entry.description}</div>
@@ -1247,7 +1237,7 @@ class TimeTracker {
             html += `
                 <div class="entry-item${stopwatchClass}${completedClass}" id="entry-${entry.id}">
                     <div class="entry-info">
-                        ${isStopwatchEntry ? '<div class="stopwatch-badge">⏱️ Main Stopwatch</div>' : ''}
+                        ${isStopwatchEntry ? '<div class="stopwatch-badge">â±ï¸ Main Stopwatch</div>' : ''}
                         <div class="entry-time">${timePeriodsDisplay}</div>
                         <div class="entry-duration" id="duration-${entry.id}">Duration: ${durationDisplay}</div>
                         <div class="entry-description">${entry.description}</div>
@@ -1437,4 +1427,3 @@ class TimeTracker {
 
 // Initialize the app
 const tracker = new TimeTracker();
-
