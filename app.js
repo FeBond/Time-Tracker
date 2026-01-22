@@ -1285,6 +1285,36 @@ class TimeTracker {
 
     // ========== Backup & Restore Functions ==========
 
+    buildEntryKey(entry) {
+        const date = entry.date || '';
+        const description = entry.description || '';
+        const timePeriods = Array.isArray(entry.timePeriods) ? entry.timePeriods : [];
+        return JSON.stringify({
+            date,
+            description,
+            timePeriods
+        });
+    }
+
+    mergeEntries(importedEntries) {
+        const existingKeys = new Set(this.entries.map(entry => this.buildEntryKey(entry)));
+        let addedCount = 0;
+        let skippedCount = 0;
+
+        importedEntries.forEach(entry => {
+            const key = this.buildEntryKey(entry);
+            if (existingKeys.has(key)) {
+                skippedCount += 1;
+                return;
+            }
+            this.entries.push(entry);
+            existingKeys.add(key);
+            addedCount += 1;
+        });
+
+        return { addedCount, skippedCount };
+    }
+
     exportData() {
         const data = {
             entries: this.entries,
@@ -1323,15 +1353,15 @@ class TimeTracker {
                     throw new Error('Invalid backup file: entries array not found');
                 }
 
-                // Confirm before importing (this will replace all current data)
-                const confirmMessage = `This will replace all ${this.entries.length} current entries with ${data.entries.length} imported entries. Continue?`;
+                // Confirm before importing (this will merge with current data)
+                const confirmMessage = `This will merge ${data.entries.length} imported entries with your current ${this.entries.length} entries. Continue?`;
                 if (!confirm(confirmMessage)) {
                     event.target.value = ''; // Reset file input
                     return;
                 }
 
-                // Import entries
-                this.entries = data.entries;
+                // Merge entries (avoid duplicates)
+                const { addedCount, skippedCount } = this.mergeEntries(data.entries);
                 this.saveEntries();
 
                 // Import dark mode preference if present
@@ -1344,7 +1374,7 @@ class TimeTracker {
                 this.updateDisplay();
 
                 // Show success message
-                this.showNotification(`Successfully imported ${data.entries.length} entries!`, 'success');
+                this.showNotification(`Imported ${addedCount} entries (${skippedCount} duplicates skipped).`, 'success');
 
                 // Reset file input
                 event.target.value = '';
