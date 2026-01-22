@@ -1,6 +1,6 @@
 # ⏱️ Time Tracker App
 
-A simple, elegant web application for tracking your work hours with multiple entries per day. Features include a stopwatch, per-entry timers, dark mode, and data backup/restore functionality.
+Track your work hours with a clean, offline‑friendly time tracker that runs in any modern browser. Use it on desktop or phone, and bring your data with you using Export/Import.
 
 ## 📋 Features
 
@@ -13,64 +13,48 @@ A simple, elegant web application for tracking your work hours with multiple ent
 - **Data Backup**: Export and import your data as JSON files
 - **Second-Level Precision**: Tracks time down to the second
 
-## 🚀 Getting Started
+## 🚀 Quick Start
 
-### Option 1: Open Directly in Browser
+Pick the option that fits how you want to use the app.
 
-1. Download all files (`index.html`, `styles.css`, `app.js`, and `README.md`)
-2. Keep all files in the same folder
-3. Double-click `index.html` to open it in your default browser
-   - Or right-click `index.html` → "Open With" → Choose your browser
+### 1) Fastest: Host It Once (Recommended)
 
-### Option 2: Use a Local Web Server (Recommended)
-
-For the best experience, use a local web server:
-
-**Using Python:**
-```bash
-# Python 3
-python3 -m http.server 8000
-
-# Python 2
-python -m SimpleHTTPServer 8000
-```
-Then open: `http://localhost:8000`
-
-**Using Node.js (http-server):**
-```bash
-npx http-server
-```
-
-**Using VS Code:**
-- Install the "Live Server" extension
-- Right-click `index.html` → "Open with Live Server"
-
-### Option 3: Open on iPhone/iPad (Safari)
-
-iOS Safari does not reliably open local `file://` HTML files. The most dependable way is to serve the files from your computer and open them over your local Wi‑Fi network.
-
-1. On your computer, run a local web server in the project folder:
-   ```bash
-   python3 -m http.server 8000
-   ```
-2. Find your computer's local IP address (example: `192.168.1.25`).
-3. On your iPhone/iPad (same Wi‑Fi), open Safari and go to:
-   `http://<your-ip>:8000`
-
-### Option 4: Host It Once (GitHub Pages / Netlify)
-
-This app is a static site (HTML/CSS/JS), so you can host it for free and open it from any device.
+This app is a static site, so you can host it for free and open it anywhere.
 
 **GitHub Pages (free for public repos):**
-1. Create a new public GitHub repository.
+1. Create a public GitHub repository.
 2. Upload `index.html`, `styles.css`, and `app.js`.
 3. Go to **Settings → Pages** and enable Pages on the `main` branch.
-4. Open the provided URL on your phone.
+4. Open the provided URL on your phone or computer.
 
 **Netlify (free tier):**
 1. Create a Netlify account.
 2. Drag and drop the folder containing `index.html`, `styles.css`, and `app.js`.
-3. Open the provided URL on your phone.
+3. Open the provided URL on your phone or computer.
+
+### 2) Run It Locally on Your Computer
+
+1. Download all files (`index.html`, `styles.css`, `app.js`, and `README.md`).
+2. Keep all files in the same folder.
+3. Start a local web server in that folder:
+
+```bash
+python3 -m http.server 8000
+```
+
+Then open: `http://localhost:8000`
+
+### 3) Use It on iPhone/iPad (Safari)
+
+iOS Safari does not reliably open local `file://` HTML files. The most dependable way is to host it (recommended above) or run a local server from your computer and open it over Wi‑Fi.
+
+1. On your computer, run:
+   ```bash
+   python3 -m http.server 8000
+   ```
+2. Find your computer’s local IP address (example: `192.168.1.25`).
+3. On your iPhone/iPad (same Wi‑Fi), open:
+   `http://<your-ip>:8000`
 
 ## 📖 How to Use
 
@@ -99,9 +83,9 @@ This app is a static site (HTML/CSS/JS), so you can host it for free and open it
 
 ### Backup & Restore
 
-- **Export Data**: Click "💾 Export" in the header to download a backup file
-- **Import Data**: Click "📥 Import" in the header and select a backup JSON file
-- **Important**: Back up regularly! Data is stored in your browser's local storage
+- **Export Data**: Click "💾 Export" to download a backup file
+- **Import Data**: Click "📥 Import" to merge a backup file into your current data
+- **Important**: Back up regularly! Data is stored in your browser’s local storage
 
 ## 💾 Data Storage
 
@@ -150,10 +134,10 @@ Time Tracker App/
 
 **iPhone Safari won't open the HTML file?**
 - iOS blocks or limits local `file://` pages
-- Use the "Local Web Server" steps above and open the site via Wi‑Fi
+- Use the hosting steps or open via a local web server over Wi‑Fi
 
-**Want to host it once and forget it?**
-- Use the GitHub Pages or Netlify steps above
+**Imported file didn’t add anything new?**
+- Imports skip duplicates by date + description + time periods
 
 ## 📝 Version
 
